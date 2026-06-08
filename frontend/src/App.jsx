@@ -1,47 +1,96 @@
+import { useState } from "react";
+import axios from "axios";
+
 function App() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [skills, setSkills] = useState("");
+  const [message, setMessage] = useState("");
+
+  const connectBackend = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/upload"
+      );
+
+      alert(response.data.message);
+    } catch (error) {
+      console.log(error);
+      setMessage("Backend connection failed");
+    }
+  };
+
+  const generateResume = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/upload",
+        {
+          name,
+          email,
+          phone,
+          skills
+        }
+      );
+      console.log(response.data);
+      setMessage(response.data.message);
+
+    }
+    catch(error) {
+      console.log(error);
+      setMessage("Something went wrong");
+    }
+  };
+
   return (
-    <div>
-      <nav>
-        <h2>AI Resume Builder</h2>
-      </nav>
+   <div style={{ padding: "40px"}}>
 
-      <section>
-        <h1>Create ATS - Friendly Resumes with AI</h1>
+    <h1>AI Resume Builder</h1>
 
-        <p>
-          Upload your resume and improve it using AI
-        </p>
-        <button> Upload your resume and improve it using AI </button>
-      </section>
+    <input
+      type="text"
+      placeholder="Full Name"
+      value={name}
+      onChange={(e) =>  setName(e.target.value)}
+    />
 
-      <section>
-        <h2>Features</h2>
+    <br/><br/>
 
-        <div className="features" >
+    <input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
 
-        <div className="card">
-          <h3>ATS Score</h3>
-          <p>Check resume compatibility</p>
-        </div>
+    <br/><br/>
 
-        <div className="card">
-          <h3>Resume Rewriter</h3>
-          <p>Improve resume with AI</p>
-        </div>
+    <input
+      type="text"
+      placeholder="Phone Number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+    />
 
-        <div className="card">
-          <h3>Cover Letter</h3>
-          <p>Generate cover letters</p>
-        </div>
+    <br/><br/>
 
-        <div className="card">
-          <h3>Interview Questions</h3>
-          <p>Prepare for intervies</p>
-        </div>
-        </div>
+    <textarea
+      placeholder="Skills"
+      rows="5"
+      cols="40"
+      value={skills}
+      onChange={(e) => setSkills(e.target.value)}
+    />
 
-      </section>
-    </div>
+    <br/><br/>
+
+    <button onClick= {generateResume}>
+      Generate Resume
+    </button>
+
+    <p>{message}</p>
+   </div>
   );
 }
+
 export default App;
