@@ -7,6 +7,7 @@ function App() {
   const [phone, setPhone] = useState("");
   const [skills, setSkills] = useState("");
   const [message, setMessage] = useState("");
+  const [resumeData, setResumeData] = useState(null);
 
   const connectBackend = async () => {
     try {
@@ -34,6 +35,7 @@ function App() {
       );
       console.log(response.data);
       setMessage(response.data.message);
+      setResumeData(response.data.data);
 
     }
     catch(error) {
@@ -89,6 +91,15 @@ function App() {
     </button>
 
     <p>{message}</p>
+    {resumeData && (
+    <div>
+      <h2>Resume Preview</h2>
+      <h3>{resumeData.name}</h3>
+      <p>Email: {resumeData.email}</p>
+      <p>Phone: {resumeData.phone}</p>
+      <p>Skills: {resumeData.skills}</p>
+    </div>
+     )}
    </div>
   );
 }
