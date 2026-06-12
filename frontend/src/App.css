@@ -41,3 +41,24 @@ button {
   padding: 20px;
   border-radius: 15px;
 }
+
+.resume-card {
+  width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: left;
+}
+
+.resume-card h2 {
+  text-align: center;
+}
+
+.resume-card h3 {
+  text-align: center;
+}
+
+.resume-card p {
+  margin: 10px 0;
+}

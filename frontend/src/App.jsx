@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./App.css";
 
 function App() {
   const [name, setName] = useState("");
@@ -8,6 +9,9 @@ function App() {
   const [skills, setSkills] = useState("");
   const [message, setMessage] = useState("");
   const [resumeData, setResumeData] = useState(null);
+  const [summary, setSummary] = useState("");
+  const [projects, setProjects] = useState("");
+
 
   const connectBackend = async () => {
     try {
@@ -30,7 +34,9 @@ function App() {
           name,
           email,
           phone,
-          skills
+          skills,
+          summary,
+          projects
         }
       );
       console.log(response.data);
@@ -77,11 +83,29 @@ function App() {
     <br/><br/>
 
     <textarea
+         placeholder="Professional summary"
+         value={summary}
+         onChange={(e) => setSummary(e.target.value)}
+    />  
+
+    <br/><br/>
+
+    <textarea
       placeholder="Skills"
       rows="5"
       cols="40"
       value={skills}
       onChange={(e) => setSkills(e.target.value)}
+    />
+
+    <br/><br/>
+
+    <textarea
+       placeholder="Projects"
+       rows="3"
+       cols="40"
+       value={projects}
+       onChange={(e) => setProjects(e.target.value)}
     />
 
     <br/><br/>
@@ -92,12 +116,25 @@ function App() {
 
     <p>{message}</p>
     {resumeData && (
-    <div>
+
+    <div className="resume-card">
       <h2>Resume Preview</h2>
+
       <h3>{resumeData.name}</h3>
-      <p>Email: {resumeData.email}</p>
-      <p>Phone: {resumeData.phone}</p>
-      <p>Skills: {resumeData.skills}</p>
+      
+      <hr />
+      <p><strong>Email</strong> {resumeData.email}</p>
+      <p><strong>Phone</strong> {resumeData.phone}</p>
+      
+      <h4>Summmary</h4>
+      <p>{summary}</p>
+
+      <h4>Projects</h4>
+      <p>{projects}</p>
+
+      <h4>Skills</h4>
+      <p>{resumeData.skills}</p>
+      
     </div>
      )}
    </div>
