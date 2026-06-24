@@ -11,6 +11,8 @@ function App() {
   const [resumeData, setResumeData] = useState(null);
   const [summary, setSummary] = useState("");
   const [projects, setProjects] = useState("");
+  const [education, seteducation] = useState("");
+  const [experience, setexperience] = useState("");
 
 
   const connectBackend = async () => {
@@ -110,6 +112,27 @@ function App() {
 
     <br/><br/>
 
+    <textarea
+       placeholder="Education"
+       rows="4"
+       cols="40"
+       value={education}
+       onChange={(e) => seteducation(e.target.value)}
+    />
+
+    <br/><br/>
+
+    <textarea
+       placeholder="Experience"
+       rows="4"
+       cols="40"
+       value={experience}
+       onChange={(e) => setexperience(e.target.value)}
+    />
+
+    <br/><br/>
+
+
     <button onClick= {generateResume}>
       Generate Resume
     </button>
@@ -133,6 +156,12 @@ function App() {
       <p>{projects}</p>
 
       <h4>Skills</h4>
+      <p>{resumeData.skills}</p>
+
+      <h4>Education</h4>
+      <p>{resumeData.skills}</p>
+
+      <h4>Experience</h4>
       <p>{resumeData.skills}</p>
       
     </div>
